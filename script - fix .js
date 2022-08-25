@@ -14,11 +14,26 @@ let removeBtn = document.querySelectorAll('.RemoveItm');
 Number(prices.innerText);
 // --------------------/*EventListeners & Functions */------------
 
-let iniitializeMerch = (idx) => {
-  for (let i = 0; i <= prices.length; i++) {
-    merchTotal.innerText += Number(prices[idx].innerText);
+
+// *********no need to have idx as it will loop on all products 
+let iniitializeMerch = () => {
+	
+	// *********check on product selector makes more sense here 
+  for (let i = 0; i <= product.length; i++) {
+	  // *********  += will act as string because merchtotatl.innertext is string 
+	  
+	  //********* use i as ur index as you are looping on all items 
+    merchTotal.innerText = Number(merchTotal.innerText) + Number(prices[i].innerText);
   }
 };
+
+
+// *********is called when all items in page are rendered 
+document.addEventListener("DOMContentLoaded", function(event) { 
+  iniitializeMerch();
+});
+	
+
 
 let merchCalc = (idx) => {
   merchTotal.innerText =
@@ -57,7 +72,13 @@ function del(arr, idx) {
 removeBtn.forEach((btn, idx) => {
   btn.addEventListener('click', () => {
     del(product, idx);
+	
+	// *********i dnt think this line is working or benefitial 
     itemsQty.innerHTML--;
+	
+	// *********you need to subtract the value of the product from the total merch upon deletion 
+	// *********sth like this  merchTotal.innerText = Number(merchTotal.innerText) - ( Number(prices[idx].innerText) *Number(itemsQty[idx].innerText);
+	
   });
 });
 let productCalc = () => {
